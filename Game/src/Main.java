@@ -14,12 +14,10 @@ public class Main {
 
         // Game Loop
         while (true) {
-            int playerX = player.getX();
-
             Game.sleep(500);
 
+            int playerX = player.getX();
             player.setPosition(playerX + 1, 0);
-            System.out.println("Player X: " + playerX);
         }
     }
 }
