@@ -2,12 +2,12 @@ public class Player extends GameObject {
     private int speed = 8;
 
 
-    public Player(Canvas canvas, int x, int y, String imagePath) {
-        super(canvas, x, y, imagePath);
+    public Player(int x, int y, String imagePath) {
+        super(x, y, imagePath);
     }
 
-    public Player(Canvas canvas, int x, int y) {
-        this(canvas, x, y, "player.png");
+    public Player(int x, int y) {
+        this(x, y, "player.png");
     }
 
 

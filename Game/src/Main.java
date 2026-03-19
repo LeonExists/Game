@@ -15,10 +15,10 @@ public class Main {
         canvas.addKeyListener(inputManager);
 
         // Player
-        Player player = new Player(canvas, 0, 0, "player.png");
+        Player player = new Player(0, 0, "player.png");
         canvas.addGameObject(player);
 
-        
+
         // Game Loop
         while (true) {
             Game.sleep(1000 / fps);

@@ -93,7 +93,7 @@ public class Map {
                 int index = getNeighbors(x, y);
 
                 // create tiles
-                GameObject newTile = new GameObject(canvas, x/2 * GameObject.getSize(), y/2 * GameObject.getSize(), tilemap[index]);
+                GameObject newTile = new GameObject(x/2 * GameObject.getSize(), y/2 * GameObject.getSize(), tilemap[index]);
                 canvas.addGameObject(newTile);
             }
         }

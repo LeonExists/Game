@@ -8,20 +8,17 @@ public class GameObject {
     private static final String DEFAULT_IMAGE_PATH = "Game/src/images/";
     private static final int DEFAULT_SIZE = 64;
 
-    private final Canvas canvas;
     private static int size = 64;
 
     private int x;
     private int y;
     private Image image;
 
-    public GameObject(Canvas canvas, int x, int y, String imagePath) {
-        this(canvas, x, y, imagePath, DEFAULT_SIZE);
+    public GameObject(int x, int y, String imagePath) {
+        this(x, y, imagePath, DEFAULT_SIZE);
     }
 
-    public GameObject(Canvas canvas, int x, int y, String imagePath, int size) {
-        this.canvas = Objects.requireNonNull(canvas, "Canvas cannot be null");
-
+    public GameObject(int x, int y, String imagePath, int size) {
         this.x = x;
         this.y = y;
         this.size = size;
@@ -72,7 +69,6 @@ public class GameObject {
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
-        canvas.repaint();
     }
 
     public void move(int dx, int dy) {
