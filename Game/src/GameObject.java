@@ -3,7 +3,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class GameObject {
-    private final String imageSource = "Game/src/images/";
+    private final String imageSource = "./images/";
 
     private Canvas canvas;
 

@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,9 @@ public class Canvas extends JPanel {
         Canvas canvas = this;
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(width, height);
+        canvas.setPreferredSize(new Dimension(width, height));
         frame.add(canvas);
+        frame.pack();
         frame.setVisible(true);
     }
 
