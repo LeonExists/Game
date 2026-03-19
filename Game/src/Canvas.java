@@ -14,9 +14,11 @@ public class Canvas extends JPanel {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         canvas.setPreferredSize(new Dimension(width, height));
+        canvas.setFocusable(true);
         frame.add(canvas);
         frame.pack();
         frame.setVisible(true);
+        canvas.requestFocusInWindow();
     }
 
     public void addGameObject(GameObject obj) {
