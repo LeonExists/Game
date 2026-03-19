@@ -31,6 +31,7 @@ public class Map {
         build(canvas);
     }
 
+
     public char[][] loadMapFromFile(String filename) throws IOException {
         ArrayList<String> lines = new ArrayList<>();
         File file = new File(mapSource + filename);
@@ -59,6 +60,7 @@ public class Map {
         return mapArray;
     }
 
+
     public char getCell(int x, int y) {
         if ((y >= 0 && y < map.length && x >= 0 && x < map[y].length)) {
             char cell = map[y][x];
@@ -71,28 +73,14 @@ public class Map {
     public int getNeighbors(int x, int y) {
         int index = 0;
 
-        // up (bit 0)
-        if(getCell(x, y + 1) != ' ') {
-            index += 1;
-        }
-
-        // down (bit 1)
-        if(getCell(x, y - 1) != ' ') {
-            index += 2;
-        }
-
-        // left (bit 2)
-        if(getCell(x - 1, y) != ' ') {
-            index += 4;
-        }
-
-        // right (bit 3)
-        if(getCell(x + 1, y) != ' ') {
-            index += 8;
-        }
+        if(getCell(x, y + 1) != ' ') { index += 1; } // up (bit 0)
+        if(getCell(x, y - 1) != ' ') { index += 2; } // down (bit 1)
+        if(getCell(x - 1, y) != ' ') { index += 4; } // left (bit 2)
+        if(getCell(x + 1, y) != ' ') { index += 8; } // right (bit 3)
 
         return index;
     }
+
 
     public void build(Canvas canvas) {
         for (int y = 0; y < map.length; y += 2) {
@@ -100,14 +88,12 @@ public class Map {
                 char cell = getCell(x, y);
 
                 // skip empty cells
-                if (cell == ' ') {
-                    continue;
-                }
+                if (cell == ' ') { continue; }
 
                 int index = getNeighbors(x, y);
 
                 // create tiles
-                GameObject newTile = new GameObject(canvas, x/2, y/2, tilemap[index]);
+                GameObject newTile = new GameObject(canvas, x/2 * GameObject.getSize(), y/2 * GameObject.getSize(), tilemap[index]);
                 canvas.addGameObject(newTile);
             }
         }
