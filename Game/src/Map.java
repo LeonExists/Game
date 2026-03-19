@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Map {
-    private final String mapSource = "./maps/";
+    private final String mapSource = "Game/src/maps/";
     private static char[][] map;
 
     public static String[] tilemap = {

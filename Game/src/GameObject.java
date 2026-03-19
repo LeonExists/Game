@@ -3,7 +3,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class GameObject {
-    private final String imageSource = "./images/";
+    private final String imageSource = "Game/src/images/";
 
     private Canvas canvas;
 
@@ -22,9 +22,7 @@ public class GameObject {
         this.image = new ImageIcon(imageSource + imagePath).getImage();
     }
 
-    public void draw(Graphics g) {
-        g.drawImage(this.image, this.x * size, this.y * size, size, size, null);
-    }
+    public void draw(Graphics g) { g.drawImage(this.image, this.x, this.y, size, size, null); }
 
 
     public int getX() { return this.x; }
