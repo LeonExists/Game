@@ -5,10 +5,12 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 
 public class GameObject {
-    private static final int DEFAULT_SIZE = 64;
+    public static final int DEFAULT_SIZE = 64;
 
-    private static int width = 64;
-    private static int height = 64;
+    private int width = 64;
+    private int height = 64;
+    private int currentWidth;
+    private int currentHeight;
 
     private int x;
     private int y;
@@ -21,9 +23,11 @@ public class GameObject {
     public GameObject(int x, int y, String imagePath, int width, int height) {
         this.x = x;
         this.y = y;
+        this.image = loadImage(imagePath);
         this.width = width;
         this.height = height;
-        this.image = loadImage(imagePath);
+        this.currentWidth = width;
+        this.currentHeight = height;
     }
 
 
@@ -61,15 +65,15 @@ public class GameObject {
 
     public void draw(Graphics g) {
         if (g != null && image != null) {
-            g.drawImage(image, x, y, width, height, null);
+            g.drawImage(image, x, y, currentWidth, currentHeight, null);
         }
     }
 
 
     public int getX() { return x; }
     public int getY() { return y; }
-    public static int getWidth() { return width; }
-    public static int getHeight() { return height; }
+    public int getWidth() { return this.currentWidth; }
+    public int getHeight() { return this.currentHeight; }
 
 
     public void setImage(Image image) {
@@ -79,6 +83,11 @@ public class GameObject {
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void setSize(int width, int height) {
+        this.currentWidth = width;
+        this.currentHeight = height;
     }
 
     public void move(int dx, int dy) {

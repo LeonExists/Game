@@ -92,8 +92,8 @@ public class Map {
 
                 int index = getNeighbors(x, y);
 
-                // create tiles
-                GameObject newTile = new GameObject(x/2 * GameObject.getWidth(), y/2 * GameObject.getHeight(), tilemap[index]);
+                // create tiles - FUTURE : Repalce with Tile class which extends GameObject and has own set size
+                GameObject newTile = new GameObject(x/2 * GameObject.DEFAULT_SIZE, y/2 * GameObject.DEFAULT_SIZE, tilemap[index]);
                 canvas.addGameObject(newTile);
             }
         }
