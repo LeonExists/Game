@@ -7,20 +7,22 @@ import javax.imageio.ImageIO;
 public class GameObject {
     private static final int DEFAULT_SIZE = 64;
 
-    private static int size = 64;
+    private static int width = 64;
+    private static int height = 64;
 
     private int x;
     private int y;
     private Image image;
 
     public GameObject(int x, int y, String imagePath) {
-        this(x, y, imagePath, DEFAULT_SIZE);
+        this(x, y, imagePath, DEFAULT_SIZE, DEFAULT_SIZE);
     }
 
-    public GameObject(int x, int y, String imagePath, int size) {
+    public GameObject(int x, int y, String imagePath, int width, int height) {
         this.x = x;
         this.y = y;
-        this.size = size;
+        this.width = width;
+        this.height = height;
         this.image = loadImage(imagePath);
     }
 
@@ -59,15 +61,20 @@ public class GameObject {
 
     public void draw(Graphics g) {
         if (g != null && image != null) {
-            g.drawImage(image, x, y, size, size, null);
+            g.drawImage(image, x, y, width, height, null);
         }
     }
 
 
     public int getX() { return x; }
     public int getY() { return y; }
-    public static int getSize() { return size; }
+    public static int getWidth() { return width; }
+    public static int getHeight() { return height; }
 
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
     public void setPosition(int x, int y) {
         this.x = x;
