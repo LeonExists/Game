@@ -1,60 +1,56 @@
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
-import javax.imageio.ImageIO;
 import java.awt.Image;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class Animation {
-    private static final String DEFAULT_IMAGE_PATH = "Game/src/images/";
-
+    private int speed;
+    private int currentFrame = 0;
+    private int tickCount = 0;
     private ArrayList<Image> frames = new ArrayList<Image>();
 
-    public Animation(String[] framePaths) {
-        // load frames
+    public Animation(String[] framePaths, int speed) {
         this.frames = loadFrames(framePaths);
+        this.speed = speed;
     }
 
-
-    // ! duplicate : of loadImage() inside GameObject class. - idea : move to Game class and have it in there once for everything
-    private Image loadImage(String imagePath) {
-        Objects.requireNonNull(imagePath, "Image path cannot be null");
-        try {
-            // Try loading from classpath resources first
-            java.net.URL resource = getClass().getClassLoader().getResource(imagePath);
-            if (resource != null) {
-                return ImageIO.read(resource);
-            }
-
-            // Fall back to file system with default path
-            java.io.File file = new java.io.File(DEFAULT_IMAGE_PATH + imagePath);
-            if (file.exists()) {
-                return ImageIO.read(file);
-            }
-
-            // Try absolute path
-            file = new java.io.File(imagePath);
-            if (file.exists()) {
-                return ImageIO.read(file);
-            }
-
-            throw new IllegalArgumentException("Image not found: " + imagePath);
-        } catch (IOException e) {
-            System.err.println("Failed to load image: " + imagePath);
-            throw new RuntimeException("Image loading failed", e);
-        }
-    }
-    // ! duplicate : of loadImage() inside GameObject class. - idea : move to Game class and have it in there once for everything
 
     private ArrayList<Image> loadFrames(String[] framePaths) {
-        ArrayList<Image> frames = new ArrayList<Image>();
+        ArrayList<Image> loadedFrames = new ArrayList<Image>();
 
         for (int i = 0; i < framePaths.length; i++) {
-            frames.add(loadImage(framePaths[i]));
+            try {
+                java.io.File file = new java.io.File("Game/src/images/player/" + framePaths[i]);
+                if (file.exists()) {
+                    loadedFrames.add(ImageIO.read(file));
+                } else {
+                    throw new IllegalArgumentException("Image not found: " + framePaths[i]);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to load animation frame: " + framePaths[i], e);
+            }
         }
 
-        return frames;
+        return loadedFrames;
     }
 
 
     public Image getFrame(int index) { return frames.get(index); }
+
+
+    public void play(GameObject gameObject) {
+        tickCount++;
+
+        if (tickCount >= speed) {
+            tickCount = 0;
+            currentFrame = (currentFrame + 1) % frames.size();
+        }
+
+        gameObject.setImage(frames.get(currentFrame));
+    }
+
+    public void reset() {
+        currentFrame = 0;
+        tickCount = 0;
+    }
 }

@@ -1,10 +1,8 @@
 public class Player extends GameObject {
-    @Override
-    DEFAULT_IMAGE_PATH = "Game/src/images/player/";
-
     private int speed = 8;
 
-    priavte Animation walk = new Animation({ "player.png", "player_walk_" })
+    private String state = "idle"; // idle, walking
+    private Animation walk = new Animation(new String[] { "player_1.png", "player_2.png" }, 15);
 
 
     public Player(int x, int y, String imagePath) {
@@ -12,13 +10,13 @@ public class Player extends GameObject {
     }
 
     public Player(int x, int y) {
-        this(x, y, "player.png");
+        this(x, y, "player_1.png");
     }
 
     @Override
     protected String getDefaultImagePath() { return "Game/src/images/player/"; }
 
-    
+
     public void update() {
         movement();
 
@@ -36,14 +34,22 @@ public class Player extends GameObject {
     public void movement() {
         InputManager inputManager = InputManager.getInstance();
 
-        if (inputManager.isUpPressed()) move(0, -speed);
-        if (inputManager.isDownPressed()) move(0, speed);
-        if (inputManager.isLeftPressed()) move(-speed, 0);
-        if (inputManager.isRightPressed()) move(speed, 0);
+        boolean moving = false;
+
+        if (inputManager.isUpPressed()) { move(0, -speed); moving = true; }
+        if (inputManager.isDownPressed()) { move(0, speed); moving = true; }
+        if (inputManager.isLeftPressed()) { move(-speed, 0); moving = true; }
+        if (inputManager.isRightPressed()) { move(speed, 0); moving = true; }
+
+        state = moving ? "walking" : "idle";
     }
 
 
     public void animate() {
-
+        if (state.equals("walking")) {
+            walk.play(this);
+        } else {
+            walk.reset();
+        }
     }
 }

@@ -15,7 +15,7 @@ public class Main {
         canvas.addKeyListener(inputManager);
 
         // Player
-        Player player = new Player(0, 0, "player.png");
+        Player player = new Player(0, 0, "player_1.png");
         canvas.addGameObject(player);
 
 
