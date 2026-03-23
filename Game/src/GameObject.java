@@ -5,7 +5,6 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 
 public class GameObject {
-    private static final String DEFAULT_IMAGE_PATH = "Game/src/images/";
     private static final int DEFAULT_SIZE = 64;
 
     private static int size = 64;
@@ -26,6 +25,9 @@ public class GameObject {
     }
 
 
+    protected String getDefaultImagePath() { return "Game/src/images/"; }
+
+    // ! duplicate : of loadImage() inside Animation class. - idea : move to Game class and have it in there once for everything
     private Image loadImage(String imagePath) {
         Objects.requireNonNull(imagePath, "Image path cannot be null");
         try {
@@ -36,7 +38,7 @@ public class GameObject {
             }
 
             // Fall back to file system with default path
-            java.io.File file = new java.io.File(DEFAULT_IMAGE_PATH + imagePath);
+            java.io.File file = new java.io.File(getDefaultImagePath() + imagePath);
             if (file.exists()) {
                 return ImageIO.read(file);
             }
@@ -53,6 +55,7 @@ public class GameObject {
             throw new RuntimeException("Image loading failed", e);
         }
     }
+    // ! duplicate : of loadImage() inside Animation class. - idea : move to Game class and have it in there once for everything
 
     public void draw(Graphics g) {
         if (g != null && image != null) {
