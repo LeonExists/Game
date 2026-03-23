@@ -65,7 +65,14 @@ public class GameObject {
 
     public void draw(Graphics g) {
         if (g != null && image != null) {
-            g.drawImage(image, x, y, currentWidth, currentHeight, null);
+            if (currentWidth < 0) {
+                int drawWidth = -currentWidth;
+                g.drawImage(image, x + drawWidth, y, x, y + currentHeight,
+                        0, 0, image.getWidth(null), image.getHeight(null), null);
+            } else {
+                g.drawImage(image, x, y, x + currentWidth, y + currentHeight,
+                        0, 0, image.getWidth(null), image.getHeight(null), null);
+            }
         }
     }
 
@@ -88,6 +95,10 @@ public class GameObject {
     public void setSize(int width, int height) {
         this.currentWidth = width;
         this.currentHeight = height;
+    }
+
+    public void flip(int direction) {
+        setSize(this.width * direction, getHeight());
     }
 
     public void move(int dx, int dy) {
