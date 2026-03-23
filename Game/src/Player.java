@@ -1,5 +1,10 @@
 public class Player extends GameObject {
+    @Override
+    DEFAULT_IMAGE_PATH = "Game/src/images/player/";
+
     private int speed = 8;
+
+    priavte Animation walk = new Animation({ "player.png", "player_walk_" })
 
 
     public Player(int x, int y, String imagePath) {
@@ -10,9 +15,14 @@ public class Player extends GameObject {
         this(x, y, "player.png");
     }
 
+    @Override
+    protected String getDefaultImagePath() { return "Game/src/images/player/"; }
 
+    
     public void update() {
         movement();
+
+        animate();
     }
 
 
@@ -30,5 +40,10 @@ public class Player extends GameObject {
         if (inputManager.isDownPressed()) move(0, speed);
         if (inputManager.isLeftPressed()) move(-speed, 0);
         if (inputManager.isRightPressed()) move(speed, 0);
+    }
+
+
+    public void animate() {
+
     }
 }
