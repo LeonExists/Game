@@ -9,12 +9,6 @@ public class InputManager extends KeyAdapter {
     // Track pressed keys by key code
     private Map<Integer, Boolean> keyStates = new HashMap<>();
 
-    // Key mappings for easy reference
-    public static final String UP = "UP";
-    public static final String DOWN = "DOWN";
-    public static final String LEFT = "LEFT";
-    public static final String RIGHT = "RIGHT";
-
     private InputManager() {}
 
     public static InputManager getInstance() {
