@@ -11,6 +11,11 @@ public class Player extends GameObject {
     }
 
 
+    public void update() {
+        movement();
+    }
+
+
     public void move(int dx, int dy) { setPosition(super.getX() + dx, super.getY() + dy); }
 
 

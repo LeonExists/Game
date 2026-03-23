@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 public class Main {
-    static final int fps = 60; 
+    static final int FPS = 60; 
 
     public static void main(String[] args) throws IOException {
         // Canvas
@@ -21,10 +21,10 @@ public class Main {
 
         // Game Loop
         while (true) {
-            Game.sleep(1000 / fps);
+            Game.sleep(1000 / FPS);
 
             // player - movement
-            player.movement();
+            player.update();
 
             // redraw screen
             canvas.repaint();
