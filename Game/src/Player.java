@@ -1,8 +1,9 @@
 public class Player extends GameObject {
     private int speed = 8;
+    int currentDirection = 0;
 
     private String state = "idle"; // idle, walking
-    private Animation walk = new Animation(new String[] { "player_1.png", "player_2.png" }, 15);
+    private Animation walk = new Animation(new String[] { "player_1.png", "player_2.png" }, 8);
 
 
     public Player(int x, int y, String imagePath) {
@@ -34,14 +35,24 @@ public class Player extends GameObject {
     public void movement() {
         InputManager inputManager = InputManager.getInstance();
 
-        boolean moving = false;
+        int dx = 0;
+        int dy = 0;
 
-        if (inputManager.isUpPressed()) { move(0, -speed); moving = true; }
-        if (inputManager.isDownPressed()) { move(0, speed); moving = true; }
-        if (inputManager.isLeftPressed()) { move(-speed, 0); moving = true; }
-        if (inputManager.isRightPressed()) { move(speed, 0); moving = true; }
+        if (inputManager.isUpPressed()) { dy -= 1; }
+        if (inputManager.isDownPressed()) { dy += 1; }
+        if (inputManager.isLeftPressed()) { dx -= 1; flip(-1); }
+        if (inputManager.isRightPressed()) { dx += 1; flip(1); }
 
-        state = moving ? "walking" : "idle";
+        // if moving
+        if (dx != 0 || dy != 0) {
+            // normalize speed - fixes diagonal movement being faster
+            double length = Math.sqrt(dx * dx + dy * dy);
+            move((int) Math.round(dx / length * speed), (int) Math.round(dy / length * speed));
+
+            state = "walking";
+        } else {
+            state = "idle";
+        }
     }
 
 
